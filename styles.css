@@ -1,3 +1,44 @@
 *{
     box-sizing: border-box;
+    
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    border: 2px solid #333;
+    border-radius: 15px;
+    margin: 50px auto;
+    padding: 10px;
+    background-color: #202020;
+}
+
+.display{
+    text-align: right;
+    /*color: white;*/
+    padding: 15px;
+    background: #999;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+}
+
+button{
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
 }
