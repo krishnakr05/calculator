@@ -4,6 +4,11 @@ let firstnum=''
 let secondnum=''
 let currentOp=null;
 let shouldResetDisplay= false
+let resultDisplayed= false
+let numberEntered= false;
+
+
+const display= document.querySelector('.display')
 
 function add(a,b){
     return a+b;
@@ -34,39 +39,52 @@ function operate(n1, n2, operator){
             result= multiply(n1, n2);
             return result;
         case '/':
-            result=divide(n1, n2);
-            return result;
+            if(n2===0) {
+                alert('lol nope')
+            }
+
+            else{
+                result=divide(n1, n2);
+                return Math.round(result*1000)/1000;
+            }
     }
 }
 
-operate(5, 3, '*')
-
 function appendNumber(n){
-    if(display.textContent==='0'|| shouldResetDisplay){
+    if(display.textContent==='0'|| shouldResetDisplay || resultDisplayed){
         display.textContent=''
         shouldResetDisplay=false
+        resultDisplayed= false
     }
     display.textContent+=n
+    numberEntered=true
 }
 
 function setOperator(op){
-    if(currentOp!== null) evaluate();
+    if(!numberEntered){
+        currentOp= op;
+        return;
+    }
+    if(currentOp!== null ){ 
+        evaluate();
+    }
+    
     firstnum=display.textContent
     currentOp=op
     shouldResetDisplay= true
+    numberEntered=false
 }
 
 function evaluate(){
-    if (currentOp===null) return;
+    if (currentOp===null || numberEntered) return;
     secondnum= display.textContent;
     let result= operate(parseFloat(firstnum), parseFloat(secondnum), currentOp);
     display.textContent=result;
     currentOp= null;
+    resultDisplayed=true
+    numberEntered= false;
 }
 
-
-
-const display= document.querySelector('.display')
 
 const numberButtons= document.querySelectorAll('.number');
 numberButtons.forEach(button=>{
@@ -89,10 +107,20 @@ equalsButton.forEach(button=>{
     })
 })
 
-const clrButton= document.querySelectorAll('.clear');
-clrButton.forEach(button=>{
-    button.addEventListener('click', ()=>{
-        console.log('clr clicked')
-    })
+const clrButton= document.querySelector('.clear');
+clrButton.addEventListener('click', ()=>{
+    display.textContent='0'
+    shouldResetDisplay= true
 })
+
+
+const acButton= document.querySelector('.ac');
+acButton.addEventListener('click', ()=>{
+    firstnum=''
+    secondnum=''
+    currentOp=null;
+    shouldResetDisplay= false
+    display.textContent='0'
+})
+
 
