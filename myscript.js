@@ -61,7 +61,7 @@ function appendNumber(n){
 }
 
 function setOperator(op){
-    if(!numberEntered){
+    if(!numberEntered ){
         currentOp= op;
         return;
     }
@@ -76,7 +76,7 @@ function setOperator(op){
 }
 
 function evaluate(){
-    if (currentOp===null || numberEntered) return;
+    if (currentOp===null || !numberEntered) return; 
     secondnum= display.textContent;
     let result= operate(parseFloat(firstnum), parseFloat(secondnum), currentOp);
     display.textContent=result;
